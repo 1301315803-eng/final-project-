@@ -1,0 +1,16 @@
+body {
+  background-color: #084D6E;
+  text-align: center;
+  text-decoration: none;
+  color: white;
+  font-size:larger;
+}
+
+.luna-llena {
+    width: 200px;
+    height: 200px;
+    border-radius: 50%;
+    background-color: #f4f4a1;
+    margin: 20px auto;
+    box-shadow: 0 0 50px #f4f4a1, 0 0 100px #f4f4a1;
+}
