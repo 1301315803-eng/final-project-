@@ -5,8 +5,8 @@ function calcularLuna() {
         return;
     }
 
-    // Calcular la fase lunar real
-    let fase = calcularFaseLunarReal(fechaInput);
+    // Calcular fase usando un calculo matemático inventado
+    let fase = calcularFaseLunarMatematica(fechaInput);
     let numeroFase = obtenerNumeroFase(fase);
 
     document.getElementById('resultado').innerText = fase;
@@ -16,42 +16,40 @@ function calcularLuna() {
     document.getElementById('dato-curioso').innerText = datoCurioso;
 }
 
-function calcularFaseLunarReal(fecha) {
-    // Fecha de referencia: Luna Nueva del 6 enero 2000
-    let fechaReferencia = new Date('2000-01-06');
+function calcularFaseLunarMatematica(fecha) {
     let fechaSeleccionada = new Date(fecha);
     
-    // Calcular días transcurridos
-    let diferenciaDias = (fechaSeleccionada - fechaReferencia) / (1000 * 60 * 60 * 24);
+    // Obtener día, mes y año
+    let dia = fechaSeleccionada.getDate();
+    let mes = fechaSeleccionada.getMonth() + 1; // +1 porque enero es 0
+    let año = fechaSeleccionada.getFullYear();
     
-    // Ciclo lunar: 29.53059 días
-    let cicleLunar = 29.53059;
+    // cálculo matemático inventado
+    let calculo = (dia * 3) + (mes * 7) + (año * 2);
     
-    // Calcular posición en el ciclo (0 a 1)
-    let posicionCiclo = (diferenciaDias % cicleLunar) / cicleLunar;
+    //módulo 8 para obtener número entre 0 y 7
+    let numeroFase = calculo % 8;
     
-    // Si es negativo, ajustar
-    if (posicionCiclo < 0) {
-        posicionCiclo = posicionCiclo + 1;
-    }
+    // posicion
+    let posicionCiclo = numeroFase / 8;
     
     return determinarFase(posicionCiclo);
 }
 
 function determinarFase(posicion) {
-    if (posicion < 0.0625 || posicion >= 0.9375) {
+    if (posicion < 0.125) {
         return "🌑 Luna Nueva";
-    } else if (posicion < 0.1875) {
+    } else if (posicion < 0.25) {
         return "🌒 Luna Creciente";
-    } else if (posicion < 0.3125) {
+    } else if (posicion < 0.375) {
         return "🌓 Cuarto Creciente";
-    } else if (posicion < 0.4375) {
+    } else if (posicion < 0.5) {
         return "🌔 Gibosa Creciente";
-    } else if (posicion < 0.5625) {
+    } else if (posicion < 0.625) {
         return "🌕 Luna Llena";
-    } else if (posicion < 0.6875) {
+    } else if (posicion < 0.75) {
         return "🌖 Gibosa Menguante";
-    } else if (posicion < 0.8125) {
+    } else if (posicion < 0.875) {
         return "🌗 Cuarto Menguante";
     } else {
         return "🌘 Luna Menguante";
@@ -70,7 +68,6 @@ function obtenerNumeroFase(fase) {
     return 0;
 }
 
-// Tu función obtenerDatoCurioso se mantiene igual
 function obtenerDatoCurioso(numeroFase) {
     let datoCurioso = "";
     
